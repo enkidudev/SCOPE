@@ -1,0 +1,53 @@
+{
+  "policy_version": "scope-dns-example-1",
+  "contracts": {
+    "EC-01": {
+      "name": "Identity attribution",
+      "fields": [
+        "principal",
+        "session_id",
+        "action"
+      ]
+    },
+    "EC-02": {
+      "name": "Direct process ancestry",
+      "fields": [
+        "process_id",
+        "parent_id"
+      ]
+    },
+    "EC-03": {
+      "name": "Recorded privilege transition",
+      "fields": [
+        "process_id",
+        "privilege_before",
+        "privilege_after",
+        "timestamp"
+      ]
+    },
+    "EC-04": {
+      "name": "Observed network endpoint",
+      "fields": [
+        "process_id",
+        "remote_ip",
+        "direction",
+        "timestamp"
+      ]
+    },
+    "EC-05": {
+      "name": "Recorded temporal order",
+      "fields": [
+        "event_id",
+        "timestamp"
+      ]
+    },
+    "EC-DNS": {
+      "name": "Recorded DNS lookup",
+      "fields": [
+        "process_id",
+        "dns_query",
+        "timestamp"
+      ]
+    }
+  }
+}

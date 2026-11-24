@@ -1,0 +1,19 @@
+[
+  {
+    "event_id": "0",
+    "source_id": "lab-win01",
+    "event_type": "synthetic_dns",
+    "timestamp": "2026-11-09T00:00:00.000000000Z",
+    "principal": "LAB\\analyst",
+    "session_id": "session-1",
+    "action": "connect",
+    "process_id": "proc-guid-2",
+    "parent_id": "proc-guid-1",
+    "privilege_before": "medium",
+    "privilege_after": "high",
+    "remote_ip": "203.0.113.10",
+    "direction": "outbound",
+    "raw_payload": "SYNTHETIC REPLAY PAYLOAD repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail repeated diagnostic detail ",
+    "dns_query": "example.test"
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "demo_summary": {
+    "id": 1,
+    "level": "F2",
+    "source_event_count": 24,
+    "encoded_document_bytes": 3966,
+    "codec": "none"
+  },
+  "supported": {
+    "segment_id": 1,
+    "contract": "EC-01",
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "verdict": "SUPPORTED",
+    "answer": [
+      {
+        "action": "connect",
+        "event_id": "0",
+        "principal": "LAB\\analyst",
+        "process_id": "proc-guid-2",
+        "session_id": "session-1",
+        "source_id": "lab-win01"
+      },
+      {
+        "action": "connect",
+        "event_id": "1",
+        "principal": "LAB\\analyst",
+        "process_id": "proc-guid-2",
+        "session_id": "session-1",
+        "source_id": "lab-win01"
+      }
+    ],
+    "total_matches": 24,
+    "returned": 2,
+    "offset": 0,
+    "next_offset": 2,
+    "reason": "The needed details are available. No matches means no matches in this saved group only"
+  },
+  "discarded_field": {
+    "segment_id": 1,
+    "contract": "EC-01",
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "verdict": "INDETERMINATE",
+    "missing_fields": [
+      "raw_payload"
+    ],
+    "reason": "Some details needed for this question were not kept for every record"
+  },
+  "ancestry": {
+    "segment_id": 2,
+    "mode": "ancestry",
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "verdict": "SUPPORTED",
+    "chain": [
+      {
+        "process_id": "proc-3",
+        "parent_id": "proc-2"
+      },
+      {
+        "process_id": "proc-2",
+        "parent_id": "proc-1"
+      },
+      {
+        "process_id": "proc-1",
+        "parent_id": "proc-0"
+      },
+      {
+        "process_id": "proc-0",
+        "parent_id": "ROOT"
+      }
+    ],
+    "reason": "Followed the recorded program links to the stated starting point. Earlier computer activity may exist outside this group"
+  },
+  "order": {
+    "segment_id": 2,
+    "mode": "order",
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "verdict": "SUPPORTED",
+    "relation": "BEFORE",
+    "timestamps": [
+      "2026-11-09T00:00:00.000000000Z",
+      "2026-11-09T00:00:00.001000000Z"
+    ],
+    "reason": "This compares recorded times only. Equal times cannot show which activity happened first"
+  },
+  "discarded_segment": {
+    "segment_id": 3,
+    "contract": "EC-01",
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "verdict": "INDETERMINATE",
+    "reason": "This group did not keep all details needed for this question"
+  },
+  "commitment": {
+    "verdict": "SUPPORTED",
+    "matches": true,
+    "scope": "Submitted segment only; no guarantee of collection completeness or source truth",
+    "reason": "Compared the whole supplied group with its saved checking value. This does not recover removed information or prove the source is true"
+  }
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="SCOPE is a local workspace for retaining and investigating security telemetry.">
+<title>SCOPE | Security-Contracted Observability and Preservation</title>
+<link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="masthead">
+  <a href="#home" class="brand" aria-label="SCOPE home"><span class="brand-mark" aria-hidden="true"></span><strong>SCOPE</strong></a>
+  <div class="masthead-actions"><a href="#guide">Guide</a><a class="button" href="#overview">Analyst workspace <span aria-hidden="true">↗</span></a></div>
+</header>
+<main id="main" tabindex="-1">
+<div id="notice" role="status" aria-live="polite"></div>
+<nav id="workspaceNav" class="worknav" aria-label="Analyst workspace" hidden><button data-view="overview" aria-current="page">Overview</button><button data-view="ingest">Add records</button><button data-view="explorer">Saved records</button><button data-view="investigation">Ask questions</button><button data-view="benchmark">Results</button></nav>
+<section class="panel" id="home">
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="product-name">Security-Contracted Observability and Preservation</p>
+      <h1>Keep what an investigation needs.</h1>
+      <p class="hero-summary">SCOPE reduces the size of security telemetry while checking that the evidence you require remains available. Import records, choose what to preserve, and see which questions the retained data can answer.</p>
+      <a class="button primary" id="homeAction" href="#overview">Open SCOPE <span aria-hidden="true">→</span></a>
+    </div>
+    <figure class="card feature-chart">
+      <figcaption><span class="overline">Saved records</span><h2>What retention saves</h2><p id="homeCompressionContext" class="muted" aria-live="polite">Loading saved compression results…</p></figcaption>
+      <div id="homeCompressionChart"></div>
+      <p id="homeCompressionDelta" class="sample-delta" hidden></p>
+    </figure>
+  </div>
+  <div class="home-flow">
+    <article><h2>Import telemetry</h2><p>Bring in SCOPE JSON or exported Sysmon process and network events.</p></article>
+    <article><h2>Set retention rules</h2><p>Choose the fields your investigations depend on, such as user identity or process lineage.</p></article>
+    <article><h2>Verify and investigate</h2><p>Compare measured storage sizes and see when a question needs evidence that was dropped.</p></article>
+  </div>
+</section>
+<section class="panel" id="overview" hidden>
+  <p class="overline">Analyst workspace</p>
+  <div class="page-heading"><div><h1>Workspace overview</h1><p class="muted">Review local storage and pick up an investigation.</p></div><a class="button primary" href="#ingest">Add records <span aria-hidden="true">→</span></a></div>
+  <div class="cards" id="metrics"></div>
+  <div class="grid overview-grid">
+    <div class="card"><h2>Guided example</h2><p>Load 24 synthetic events and open an investigation into a recorded user action.</p><button class="primary" id="start" disabled>Try a guided example</button></div>
+    <div class="card"><h2>Database breakdown</h2><div id="storage"></div></div>
+  </div>
+</section>
+<section class="panel" id="ingest" hidden><p class="overline">Analyst workspace</p><h1>Add records</h1><p class="muted">Choose what must stay, then add an example or a file. If a required detail is missing, SCOPE will explain why it cannot save that group.</p>
+<div class="grid"><div class="card"><h2>1. What must each record keep?</h2><div class="row"><button id="all">Keep all listed details</button><button id="processPreset">Windows program records</button><button id="networkPreset">Windows connection records</button></div><p class="muted">The Windows buttons choose rules usually suited to those file types. The needed details must still exist in your file.</p><div id="contracts"></div><p id="ruleSummary" class="note" aria-live="polite"></p><details><summary>More settings</summary><button id="none">Remove all required rules</button><p>With no rules, SCOPE may remove all record content. The group number and storage notes still remain.</p><label for="codec">How should saved information be packed?</label><select id="codec"><option value="none">None</option><option value="zlib" selected>zlib · built in</option><option value="zstd">Zstandard · optional package</option></select><p class="muted">Packing saves space without removing more details. It is separate from choosing which details to keep.</p></details></div>
+<div class="card"><h2>2. Choose your records</h2><label for="scenario">Example to use</label><select id="scenario"><option value="repetitive">Repeated activity · many similar records</option><option value="diverse">Mixed activity · different users and programs</option><option value="entropy">Long extra messages · shows why removing detail saves space</option><option value="chain">Program family · shows which program started which</option></select><p><button class="primary" id="demo" disabled>Add example records</button></p><small>All examples are made up for practice.</small><hr><label for="file">Or choose a record file</label><input type="file" id="file" accept=".json,.xml"><p><button id="import" disabled>Add selected file</button></p><small>Use a SCOPE JSON file or an exported Windows Sysmon XML file containing program starts or connections. See the guide for sample files and export steps.</small></div></div>
+<div class="card"><h2>What was saved?</h2><div id="selectionSummary"><p class="muted">Add records to see the chosen storage method and details kept.</p></div><details><summary>More details about the storage decision</summary><pre id="selection">No group added yet.</pre></details></div></section>
+<section class="panel" id="explorer" hidden><p class="overline">Analyst workspace</p><h1>Saved records</h1><p class="muted">Each row is one group you added. Open it to see what was kept, then ask a question or download its saved information.</p><div class="card"><div class="tablewrap"><table class="saved-table"><thead><tr><th>Group</th><th>How it is saved</th><th>Records</th><th>Saved size</th><th>Details kept</th><th>Actions</th></tr></thead><tbody id="segments"></tbody></table></div><div class="row" style="margin-top:16px"><button id="older">Show older groups</button><button id="newer">Back to newest groups</button></div></div><div class="card"><h2>Selected group</h2><div id="groupSummary"><p class="muted">Choose a group above.</p></div><div class="row"><button id="askSelected" disabled>Ask about this group</button><a id="export" href="#" hidden>Download saved information</a></div><details><summary>More details for this group</summary><pre id="details">No group selected.</pre></details></div></section>
+<section class="panel" id="investigation" hidden><p class="overline">Analyst workspace</p><h1>Ask questions</h1><p class="muted">Choose a saved group and a question. Answers describe only the information in that group.</p><div class="grid"><div class="card"><label for="segment">Saved group</label><select id="segment"></select><details><summary>Open an older group by number</summary><label for="segmentId">Group number</label><input id="segmentId" type="number" min="1" step="1"><button id="openSegment">Open this group</button></details><p id="policyScope" class="muted" aria-live="polite">Add records to begin.</p><label for="mode">What would you like to find?</label><select id="mode"><option value="records">Find details in the saved records</option><option value="ancestry">Which program started this program?</option><option value="order">Which record came first?</option></select>
+<div id="recordFields"><label for="contract">Which details should the answer show?</label><select id="contract"></select><label for="filterField">Find records where</label><select id="filterField"><option value="">Show all records</option><option value="principal">User</option><option value="process_id">Program reference</option><option value="event_id">Record number</option><option value="session_id">Session</option><option value="action">Action</option><option value="remote_ip">Remote address</option><option value="raw_payload">Extra message</option><option value="source_id">Computer/source</option></select><label for="filterValue">Equals</label><input id="filterValue" type="text" placeholder="Type the exact value to match" disabled><small>Matches are exact and use the same capital letters. “Show all records” needs no value.</small><details><summary>Use more than one condition</summary><label class="check"><input id="useAdvanced" type="checkbox">Use the conditions below</label><label for="filters">Conditions as JSON (explained in the guide)</label><textarea id="filters">{}</textarea><small>Example: {"principal":"LAB\\analyst","action":"connect"}. Turn this off to use the simple search above.</small></details><p><button id="missingExample">Ask about a removed message</button></p><small>This fills in a question about an extra message. If the message was removed, the answer will explain that there is not enough information.</small></div>
+<div id="relationFields" hidden><label for="source">Computer/source name</label><input id="source" type="text" value="lab-win01"><div id="ancestryFields"><label for="process">Program reference</label><input id="process" type="text" value="proc-3"><small>Use the program-family example to try proc-3. Missing earlier programs can leave the history incomplete.</small></div><div id="orderFields" hidden><label for="eventA">First record number</label><input id="eventA" type="text" value="0"><label for="eventB">Second record number</label><input id="eventB" type="text" value="1"><small>This compares the recorded times. Equal times do not show which action happened first.</small></div></div><p><button class="primary" id="query" disabled>Find answer</button></p></div>
+<div class="card"><h2 id="verdict">Your answer</h2><p id="resultSummary" aria-live="polite">Choose a group and ask a question.</p><form id="answerSearchForm" class="answer-search" role="search" aria-label="Search the answer" hidden>
+<label for="answerSearch">Search answer records</label>
+<div class="answer-search-controls"><input id="answerSearch" name="search" type="search" maxlength="256" placeholder="User, action, record number…" autocomplete="off"><button type="submit" id="searchAnswer">Search</button><button type="button" id="clearAnswerSearch" hidden>Clear</button></div>
+</form><div id="answerTable"></div><p><button id="next" disabled>Show next results</button></p><details><summary>More details about this answer</summary><pre id="result">No question run yet.</pre></details><p class="note">“No matches” means no matches in this group. “Not enough information” means a needed detail could not be checked.</p></div></div></section>
+<section class="panel" id="benchmark" hidden>
+  <p class="overline">Analyst workspace</p><h1>Results</h1>
+  <p class="muted">Compare retained evidence with full records and review measured storage overhead.</p>
+  <div class="result-switch" role="group" aria-label="Results view"><button id="liveMode" aria-pressed="true">Live results</button><button id="loadBench" aria-pressed="false">Benchmarks</button></div>
+  <div id="liveResults">
+    <div class="cards" id="liveMetrics"></div>
+    <div class="card">
+      <div class="page-heading chart-heading"><div><h2>Compression by saved batch</h2><p class="muted" id="liveDetail"></p></div><div><label for="resultBatch">Saved batch</label><select id="resultBatch" disabled></select></div></div>
+      <div id="liveChart"></div>
+      <p id="liveDelta" class="chart-note" hidden></p>
+    </div>
+    <div class="card"><h2>Retention candidates</h2><p class="muted">The engine measures each candidate using the batch's codec and chooses the smallest one that meets the selected rules.</p><div id="candidateTable"></div></div>
+  </div>
+  <div id="benchmarkResults" hidden>
+    <p id="benchmarkNote" class="muted" aria-live="polite"></p>
+    <div class="cards" id="quality"></div>
+    <div class="card">
+      <div class="page-heading chart-heading"><div><h2>Full records vs retained output</h2><p class="muted">Recorded synthetic workloads. Both sizes use the same codec.</p></div><div><label for="benchCase">Workload and codec</label><select id="benchCase" disabled></select></div></div>
+      <div id="benchChart"></div>
+      <div class="tablewrap benchmark-table"><table><thead><tr><th>Workload</th><th>Codec</th><th>Retention method</th><th>Full size</th><th>Retained size</th><th>Reduction</th><th>Median ingest</th><th>Median query</th></tr></thead><tbody id="benchRows"></tbody></table></div>
+      <details><summary>Benchmark methodology</summary><div id="benchData" class="muted"></div></details>
+    </div>
+  </div>
+</section>
+<section class="panel" id="guide" hidden>
+  <h1>Project guide</h1>
+  <p class="muted">Import records, choose what to preserve, and check which questions the retained evidence can answer.</p>
+  <div class="grid">
+    <article class="card"><h2>Import supported records</h2><p>Use SCOPE JSON or exported Sysmon XML that contains process creation or network connection events. Import each event type separately when its required fields differ.</p><a href="#ingest">Open Add records →</a></article>
+    <article class="card"><h2>Choose what to preserve</h2><p>Each selected rule must hold for every record in the batch. SCOPE compares candidate sizes with the same codec and selects the smallest one that preserves those rules.</p><a href="#benchmark">Open Results →</a></article>
+    <article class="card"><h2>Interpret investigation answers</h2><p><strong>No matches</strong> means no retained records match. <strong>Not enough information</strong> means SCOPE could not check a required detail.</p><a href="#investigation">Open Ask questions →</a></article>
+    <article class="card"><h2>Review storage measurements</h2><p>Live Results compares complete encoded documents and shows SQLite allocation separately. Benchmarks use recorded synthetic workloads and report observed evidence checks and timings.</p><a href="/guide" target="_blank" rel="noopener">Read the complete technical guide ↗</a></article>
+  </div>
+</section>
+</main>
+<footer class="site-footer"><span>SCOPE</span><span>Local security telemetry workspace</span><a href="#guide">Project guide <span aria-hidden="true">↗</span></a></footer>
+<script src="/dashboard.js" defer></script>
+</body>
+</html>

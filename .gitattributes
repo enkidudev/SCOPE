@@ -1,0 +1,2 @@
+* text=auto eol=lf
+data/benchmark.csv -text whitespace=cr-at-eol
